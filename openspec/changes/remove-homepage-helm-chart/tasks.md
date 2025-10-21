@@ -1,0 +1,12 @@
+## 1. Implementation
+- [x] 1.1 Remove values.yaml from environments/kubernetes/overlays/prod/homepage/
+- [x] 1.2 Create serviceaccount.yaml with ServiceAccount manifest
+- [x] 1.3 Create secret.yaml with Secret manifest
+- [x] 1.4 Create configmap.yaml with ConfigMap manifest
+- [x] 1.5 Create clusterrole.yaml with ClusterRole and ClusterRoleBinding manifests
+- [x] 1.6 Create service.yaml with Service manifest
+- [x] 1.7 Create deployment.yaml with Deployment manifest
+- [x] 1.8 Create ingress.yaml with Ingress manifest
+- [x] 1.9 Update kustomization.yaml to include all new manifests and remove Helm references
+- [x] 1.10 Test deployment with kubectl apply --dry-run
+- [x] 1.11 Apply manifests and verify Homepage service is accessible
