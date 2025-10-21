@@ -52,5 +52,6 @@ Homelab environment focuses on self-hosting applications for personal use. Key c
 ## External Dependencies
 - Dashy Helm chart (external repository)
 - Homepage Helm chart (external repository)
+- Metrics Server Helm chart (kubernetes-sigs/metrics-server)
 - Kubernetes cluster (local or cloud-based)
 - Ingress controller for HTTP routing

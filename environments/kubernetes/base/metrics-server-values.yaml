@@ -1,0 +1,74 @@
+apiService:
+  create: true
+
+args:
+  - --cert-dir=/tmp
+  - --secure-port=4443
+  - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+  - --kubelet-use-node-status-port
+  - --metric-resolution=15s
+  - --kubelet-insecure-tls
+
+extraArgs:
+  kubelet-insecure-tls: ""
+
+hostNetwork:
+  enabled: false
+
+image:
+  repository: registry.k8s.io/metrics-server/metrics-server
+  tag: v0.7.1
+  pullPolicy: IfNotPresent
+
+nodeSelector: {}
+
+podDisruptionBudget:
+  enabled: false
+  minAvailable: 1
+
+podSecurityContext:
+  fsGroup: 65534
+  runAsGroup: 65534
+  runAsUser: 65534
+
+rbac:
+  create: true
+  pspEnabled: false
+
+replicas: 1
+
+resources:
+  limits:
+    cpu: 100m
+    memory: 200Mi
+  requests:
+    cpu: 10m
+    memory: 50Mi
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65534
+
+service:
+  annotations: {}
+  labels: {}
+  port: 443
+  type: ClusterIP
+
+serviceAccount:
+  annotations: {}
+  create: true
+  name: ""
+
+tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/control-plane
+    operator: Exists
+
+verticalPodAutoscaler:
+  enabled: false
