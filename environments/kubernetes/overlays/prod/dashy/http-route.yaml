@@ -14,7 +14,7 @@ spec:
         - group: ""
           kind: Service
           name: dashy
-          port: 8200
+          port: 80
           weight: 1
           namespace: homelab
       matches:
