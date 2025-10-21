@@ -7,3 +7,5 @@ helmCharts:
     releaseName: dashy
     namespace: dashy
     valuesFile: values.yaml
+resources:
+  - http-route.yaml
