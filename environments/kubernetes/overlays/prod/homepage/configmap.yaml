@@ -37,20 +37,20 @@ data:
     - kubernetes:
         cluster:
           show: true
-          cpu: true
-          memory: true
+          cpu: false
+          memory: false
           showLabel: true
           label: "cluster"
         nodes:
           show: true
-          cpu: true
-          memory: true
+          cpu: false
+          memory: false
           showLabel: true
     - resources:
         backend: resources
         expanded: true
-        cpu: true
-        memory: true
+        cpu: false
+        memory: false
         network: default
     - search:
         provider: duckduckgo
