@@ -11,21 +11,27 @@ data:
         - Github:
             - abbr: GH
               href: https://github.com/
-  services.yaml: |
-    - My First Group:
-        - My First Service:
-            href: http://localhost/
-            description: Homepage is awesome
-    - My Second Group:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
-  widgets.yaml: |
-    - search:
-        provider: duckduckgo
-        target: _blank
-
+   services.yaml: |
+     - My First Group:
+         - My First Service:
+             href: http://localhost/
+             description: Homepage is awesome
+     - My Second Group:
+         - My Second Service:
+             href: http://localhost/
+             description: Homepage is the best
+     - My Third Group:
+         - My Third Service:
+             href: http://localhost/
+             description: Homepage is 😎
+     - Monitoring:
+         - Uptime Kuma:
+             href: https://uptime.simonbrundin.com
+             description: Monitor homelab service uptime
+   widgets.yaml: |
+     - search:
+         provider: duckduckgo
+         target: _blank
+     - uptimekuma:
+         url: https://uptime.simonbrundin.com
+         slug: plan
