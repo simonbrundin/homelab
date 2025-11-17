@@ -35,14 +35,11 @@ data:
             description: Min älskade gateway
     - Monitoring:
         - Uptime Kuma:
-
             icon: uptime-kuma.png
             href: https://uptime.simonbrundin.com
+            siteMonitor: https://uptime.simonbrundin.com
             description: Monitor homelab service uptime
   widgets.yaml: |
     - search:
         provider: duckduckgo
         target: _blank
-    - uptimekuma:
-        url: https://uptime.simonbrundin.com
-        slug: plan
