@@ -18,6 +18,11 @@ data:
             href: http://grafana.simonbrundin.com
             siteMonitor: http://grafana.simonbrundin.com
             description: Dashboardarnas dashboard
+        - pgAdmin:
+            icon: pgadmin.png
+            href: http://pgadmin.simonbrundin.com
+            siteMonitor: http://pgadmin.simonbrundin.com
+            description: Hantera Postgres-databaser
     - Egenutvecklat:
         - Plan:
             href: http://plan.simonbrundin.com
@@ -30,6 +35,8 @@ data:
             description: Min älskade gateway
     - Monitoring:
         - Uptime Kuma:
+
+            icon: uptime-kuma.png
             href: https://uptime.simonbrundin.com
             description: Monitor homelab service uptime
   widgets.yaml: |
