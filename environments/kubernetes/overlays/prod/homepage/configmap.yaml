@@ -16,15 +16,18 @@ data:
         - Grafana:
             icon: grafana.png
             href: http://grafana.simonbrundin.com
-            description: Homepage is awesome
-    - My Second Group:
-        - My Second Service:
-            href: http://localhost/
-            description: Homepage is the best
-    - My Third Group:
-        - My Third Service:
-            href: http://localhost/
-            description: Homepage is 😎
+            siteMonitor: http://grafana.simonbrundin.com
+            description: Dashboardarnas dashboard
+    - Egenutvecklat:
+        - Plan:
+            href: http://plan.simonbrundin.com
+            siteMonitor: http://plan.simonbrundin.com
+            description: Världens bästa planeringsapp 😎
+    - Infra:
+        - Unifi:
+            href: https://unifi.ui.com/consoles/0CEA145690E500000000087652220000000008E9B7670000000067253CC5:1407354649/network/default/clients/main
+            icon: unifi.png
+            description: Min älskade gateway
     - Monitoring:
         - Uptime Kuma:
             href: https://uptime.simonbrundin.com
