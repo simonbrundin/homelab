@@ -23,6 +23,12 @@ data:
             href: http://pgadmin.simonbrundin.com
             siteMonitor: http://pgadmin.simonbrundin.com
             description: Hantera Postgres-databaser
+        - Longhorn:
+            icon: longhorn.png
+            href: http://longhorn.simonbrundin.com
+            siteMonitor: http://longhorn.simonbrundin.com
+            description: Lagring i Kubernetes
+
     - Egenutvecklat:
         - Plan:
             href: http://plan.simonbrundin.com
