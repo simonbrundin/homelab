@@ -10,7 +10,7 @@ spec:
     - name: simons-gateway
       namespace: envoy
   hostnames:
-    - "jellyfin.simonbrundin.com"
+    - "tv.simonbrundin.com"
   rules:
     - backendRefs:
         - group: ""
