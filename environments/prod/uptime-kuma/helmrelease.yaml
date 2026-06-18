@@ -1,0 +1,55 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: uptime-kuma
+  namespace: uptime-kuma
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: uptime-kuma
+      version: "4.1.0"
+      sourceRef:
+        kind: HelmRepository
+        name: uptime-kuma
+        namespace: uptime-kuma
+  install:
+    createNamespace: true
+  values:
+    image:
+      repository: louislam/uptime-kuma
+      tag: "2.3.0"
+
+    service:
+      type: ClusterIP
+      port: 3001
+
+    ingress:
+      enabled: false
+
+    volume:
+      enabled: true
+      size: 1Gi
+      storageClassName: longhorn-single-replica
+
+    podSecurityContext:
+      fsGroup: 1000
+
+    securityContext:
+      runAsUser: 1000
+      runAsGroup: 1000
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        memory: 512Mi
+
+    livenessProbe:
+      initialDelaySeconds: 180
+      periodSeconds: 10
+
+    readinessProbe:
+      initialDelaySeconds: 10
+      periodSeconds: 5
