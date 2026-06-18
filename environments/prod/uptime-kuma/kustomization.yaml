@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: uptime-kuma
 
 resources:
+  - namespace.yaml
   - helmrepository.yaml
   - helmrelease.yaml
   - http-route.yaml
