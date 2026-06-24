@@ -64,5 +64,6 @@ spec:
     createNamespace: true
     timeout: 10m
   upgrade:
-    strategy: Recreate
+    strategy:
+      type: Recreate
     timeout: 10m
