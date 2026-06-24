@@ -65,5 +65,5 @@ spec:
     timeout: 10m
   upgrade:
     strategy:
-      type: Recreate
+      name: Recreate
     timeout: 10m
