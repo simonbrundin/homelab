@@ -8,6 +8,12 @@ metadata:
 spec:
   instances: 1
   imageName: ghcr.io/cloudnative-pg/postgresql:18-standard-trixie
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      memory: 512Mi
   storage:
     size: 10Gi
     storageClass: longhorn-single-replica
