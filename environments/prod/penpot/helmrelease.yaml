@@ -1,0 +1,49 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: penpot
+  namespace: penpot
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: penpot
+      sourceRef:
+        kind: HelmRepository
+        name: penpot
+        namespace: flux-system
+  values:
+    config:
+      existingSecret: penpot-credentials
+      secretKeys:
+        apiSecretKey: api-secret-key
+      postgresql:
+        host: penpot-db-rw
+        database: penpot
+        username: penpot
+        existingSecret: penpot-credentials
+        secretKeys:
+          passwordKey: db-password
+      redis:
+        host: penpot-redis
+        port: 6379
+        database: 0
+      publicUri: "https://design.simonbrundin.com"
+      flags: >
+        enable-registration
+        enable-login-with-password
+        disable-email-verification
+        enable-smtp
+    persistence:
+      assets:
+        enabled: true
+        existingClaim: penpot-assets
+    global:
+      postgresqlEnabled: false
+      valkeyEnabled: false
+  install:
+    createNamespace: true
+    timeout: 10m
+  upgrade:
+    strategy: Recreate
+    timeout: 10m

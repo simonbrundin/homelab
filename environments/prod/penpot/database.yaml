@@ -1,0 +1,27 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: penpot-db
+  namespace: penpot
+  labels:
+    app.kubernetes.io/name: penpot
+spec:
+  instances: 1
+  imageName: ghcr.io/cloudnative-pg/postgresql:18-standard-trixie
+  storage:
+    size: 10Gi
+    storageClassName: longhorn-single-replica
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: penpot-database
+  namespace: penpot
+spec:
+  name: penpot
+  owner: penpot
+  cluster:
+    name: penpot-db
+  extensions:
+    - name: uuid-ossp
+      ensure: present
