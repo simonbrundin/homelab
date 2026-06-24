@@ -10,7 +10,7 @@ spec:
   imageName: ghcr.io/cloudnative-pg/postgresql:18-standard-trixie
   storage:
     size: 10Gi
-    storageClassName: longhorn-single-replica
+    storageClass: longhorn-single-replica
   postgresql:
     shared_preload_libraries:
       - "vchord.so"
