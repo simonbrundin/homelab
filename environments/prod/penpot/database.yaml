@@ -17,17 +17,9 @@ spec:
   storage:
     size: 10Gi
     storageClass: longhorn-single-replica
----
-apiVersion: postgresql.cnpg.io/v1
-kind: Database
-metadata:
-  name: penpot-database
-  namespace: penpot
-spec:
-  name: penpot
-  owner: penpot
-  cluster:
-    name: penpot-db
-  extensions:
-    - name: uuid-ossp
-      ensure: present
+  bootstrap:
+    initdb:
+      database: penpot
+      owner: penpot
+      secret:
+        name: penpot-db-app
