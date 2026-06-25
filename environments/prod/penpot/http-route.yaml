@@ -12,6 +12,18 @@ spec:
   hostnames:
     - "design.simonbrundin.com"
   rules:
+    # MCP routes
+    - backendRefs:
+        - group: ""
+          kind: Service
+          name: penpot-mcp
+          port: 4401
+          weight: 1
+      matches:
+        - path:
+            type: PathPrefix
+            value: /mcp
+    # Main Penpot route
     - backendRefs:
         - group: ""
           kind: Service
