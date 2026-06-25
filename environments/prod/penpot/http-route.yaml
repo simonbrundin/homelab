@@ -15,8 +15,8 @@ spec:
     - backendRefs:
         - group: ""
           kind: Service
-          name: penpot-frontend
-          port: 80
+          name: penpot
+          port: 8080
           weight: 1
       matches:
         - path:
