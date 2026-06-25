@@ -29,16 +29,13 @@ metadata:
   name: immich-database
   namespace: immich
 spec:
-  name: immich
-  owner: immich
+  name: app
   cluster:
     name: immich-db
   extensions:
     - name: vector
       ensure: present
-    - name: vchord
+    - name: cube
       ensure: present
     - name: earthdistance
-      ensure: present
-    - name: cube
       ensure: present
