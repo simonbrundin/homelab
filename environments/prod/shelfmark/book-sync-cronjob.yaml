@@ -1,0 +1,85 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: shelfmark-to-calibre-sync
+  namespace: shelfmark
+  labels:
+    app.kubernetes.io/name: shelfmark-to-calibre-sync
+spec:
+  schedule: "*/5 * * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: shelfmark-to-calibre-sync
+        spec:
+          restartPolicy: OnFailure
+          serviceAccountName: shelfmark-sync
+          containers:
+            - name: sync
+              image: bitnami/kubectl:1.29
+              command:
+                - sh
+                - -c
+                - |
+                  set -e
+                  
+                  SOURCE_POD=$(kubectl get pods -n shelfmark -l app.kubernetes.io/name=shelfmark -o jsonpath='{.items[0].metadata.name}')
+                  DEST_POD=$(kubectl get pods -n calibre-web-automated -l app.kubernetes.io/name=calibre-web-automated -o jsonpath='{.items[0].metadata.name}')
+                  
+                  echo "[$(date)] Syncing books..."
+                  
+                  # Hämta filer från Shelfmark
+                  kubectl exec -n shelfmark $SOURCE_POD -- find /books -maxdepth 1 -type f \( -name "*.epub" -o -name "*.pdf" -o -name "*.mobi" -o -name "*.azw3" \) -exec basename {} \; 2>/dev/null | while read filename; do
+                    SOURCE_PATH="/books/${filename}"
+                    DEST_PATH="/books/${filename}"
+                    
+                    # Kontrollera om filen redan finns
+                    if kubectl exec -n calibre-web-automated $DEST_POD -- test ! -f "$DEST_PATH" 2>/dev/null; then
+                      echo "Copying: $filename"
+                      kubectl exec -n shelfmark $SOURCE_POD -- cat "$SOURCE_PATH" > /tmp/"$filename" 2>/dev/null
+                      kubectl cp /tmp/"$filename" calibre-web-automated/$DEST_POD:"$DEST_PATH"
+                      rm -f /tmp/"$filename"
+                      echo "✓ Synced: $filename"
+                    fi
+                  done
+                  
+                  echo "[$(date)] Sync complete"
+              env:
+                - name: TZ
+                  value: "Europe/Stockholm"
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: shelfmark-sync
+  namespace: shelfmark
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: shelfmark-sync
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list"]
+  - apiGroups: [""]
+    resources: ["pods/exec"]
+    verbs: ["create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: shelfmark-sync
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: shelfmark-sync
+subjects:
+  - kind: ServiceAccount
+    name: shelfmark-sync
+    namespace: shelfmark
