@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/name: immich
 spec:
   instances: 1
-  imageName: ghcr.io/tensorchord/cloudnative-pgvecto.rs:16.5-v0.3.0
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:18
   storage:
     size: 10Gi
     storageClass: longhorn-single-replica
@@ -19,12 +19,12 @@ spec:
       localeCType: C
       localeCollate: C
       postInitApplicationSQL:
-        - CREATE EXTENSION IF NOT EXISTS "vectors";
+        - CREATE EXTENSION IF NOT EXISTS "vchord" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
   postgresql:
     shared_preload_libraries:
-      - "vectors.so"
+      - "vchord"
   enableSuperuserAccess: true
   managed:
     roles:
