@@ -59,6 +59,8 @@ spec:
               value: "false"
             - name: CWA_PORT_OVERRIDE
               value: "8083"
+            - name: CWA_UPLOAD_FOLDER
+              value: "/books"
           resources:
             requests:
               cpu: 100m
@@ -79,15 +81,15 @@ spec:
           volumeMounts:
             - name: config
               mountPath: /config
-            - name: ingest
-              mountPath: /cwa-book-ingest
+            - name: books
+              mountPath: /books
             - name: library
               mountPath: /calibre-library
       volumes:
         - name: config
           persistentVolumeClaim:
             claimName: cwa-config
-        - name: ingest
+        - name: books
           persistentVolumeClaim:
             claimName: shelfmark-books
         - name: library
