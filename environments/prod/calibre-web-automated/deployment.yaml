@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calibre-web-automated
+  namespace: calibre-web-automated
+  labels:
+    app.kubernetes.io/name: calibre-web-automated
+    app.kubernetes.io/instance: calibre-web-automated
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: calibre-web-automated
+      app.kubernetes.io/instance: calibre-web-automated
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: calibre-web-automated
+        app.kubernetes.io/instance: calibre-web-automated
+    spec:
+      securityContext:
+        fsGroup: 1000
+        runAsUser: 1000
+        runAsGroup: 1000
+      containers:
+        - name: calibre-web-automated
+          image: crocodilestick/calibre-web-automated:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8083
+              protocol: TCP
+          env:
+            - name: PUID
+              value: "1000"
+            - name: PGID
+              value: "1000"
+            - name: TZ
+              value: "Europe/Stockholm"
+            - name: NETWORK_SHARE_MODE
+              value: "false"
+            - name: CWA_PORT_OVERRIDE
+              value: "8083"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: ingest
+              mountPath: /cwa-book-ingest
+            - name: library
+              mountPath: /calibre-library
+      volumes:
+        - name: config
+          persistentVolumeClaim:
+            claimName: cwa-config
+        - name: ingest
+          emptyDir: {}
+        - name: library
+          persistentVolumeClaim:
+            claimName: cwa-library

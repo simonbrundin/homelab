@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: calibre-web-automated
+  labels:
+    app.kubernetes.io/name: calibre-web-automated
+    app.kubernetes.io/instance: calibre-web-automated

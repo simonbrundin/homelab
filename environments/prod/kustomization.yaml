@@ -5,3 +5,5 @@ resources:
   - uptime-kuma
   - immich
   - penpot
+  - calibre-web-automated
+  - shelfmark

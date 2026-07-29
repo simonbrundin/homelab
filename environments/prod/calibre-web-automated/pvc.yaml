@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cwa-config
+  namespace: calibre-web-automated
+  labels:
+    app.kubernetes.io/name: calibre-web-automated
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: cwa-library
+  namespace: calibre-web-automated
+  labels:
+    app.kubernetes.io/name: calibre-web-automated
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: longhorn
