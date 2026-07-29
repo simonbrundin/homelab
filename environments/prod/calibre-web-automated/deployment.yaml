@@ -24,6 +24,26 @@ spec:
       securityContext:
         fsGroup: 1000
         runAsUser: 0
+      initContainers:
+        - name: init-db
+          image: crocodilestick/calibre-web-automated:latest
+          imagePullPolicy: IfNotPresent
+          command:
+            - sh
+            - -c
+            - |
+              # Create anonymous user if not exists
+              if ! sqlite3 /config/app.db \
+                "SELECT 1 FROM user WHERE role & 32 = 32" \
+                | grep -q 1; then
+                echo "Creating anonymous user..."
+                sqlite3 /config/app.db \
+                  "INSERT INTO user (name,email,role) VALUES (NULL,NULL,32);"
+              fi
+              echo "Database initialized"
+          volumeMounts:
+            - name: config
+              mountPath: /config
       containers:
         - name: calibre-web-automated
           image: crocodilestick/calibre-web-automated:latest
