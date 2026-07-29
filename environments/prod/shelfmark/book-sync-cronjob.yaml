@@ -19,30 +19,29 @@ spec:
         spec:
           restartPolicy: OnFailure
           serviceAccountName: shelfmark-sync
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
-            fsGroup: 1000
           containers:
             - name: sync
-              image: registry.k8s.io/kubectl:v1.35.2
+              image: docker.io/library/alpine:3.19
               command:
-                - sh
+                - /bin/sh
                 - -c
                 - |
                   set -e
+                  
+                  # Installera kubectl
+                  apk add --no-cache curl > /dev/null 2>&1
+                  curl -sSL https://dl.k8s.io/release/$(curl -sSL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl -o /usr/local/bin/kubectl
+                  chmod +x /usr/local/bin/kubectl
                   
                   SOURCE_POD=$(kubectl get pods -n shelfmark -l app.kubernetes.io/name=shelfmark -o jsonpath='{.items[0].metadata.name}')
                   DEST_POD=$(kubectl get pods -n calibre-web-automated -l app.kubernetes.io/name=calibre-web-automated -o jsonpath='{.items[0].metadata.name}')
                   
                   echo "[$(date)] Syncing books from $SOURCE_POD to $DEST_POD..."
                   
-                  # Hämta filer från Shelfmark
                   for filename in $(kubectl exec -n shelfmark $SOURCE_POD -- find /books -maxdepth 1 -type f \( -name "*.epub" -o -name "*.pdf" -o -name "*.mobi" -o -name "*.azw3" \) -printf "%f\n" 2>/dev/null); do
                     SOURCE_PATH="/books/${filename}"
                     DEST_PATH="/books/${filename}"
                     
-                    # Kontrollera om filen redan finns
                     if ! kubectl exec -n calibre-web-automated $DEST_POD -- test -f "$DEST_PATH" 2>/dev/null; then
                       echo "Copying: $filename"
                       kubectl exec -n shelfmark $SOURCE_POD -- cat "$SOURCE_PATH" > /tmp/"$filename" 2>/dev/null
