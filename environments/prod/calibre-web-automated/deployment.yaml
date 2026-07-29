@@ -23,8 +23,7 @@ spec:
     spec:
       securityContext:
         fsGroup: 1000
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsUser: 0
       containers:
         - name: calibre-web-automated
           image: crocodilestick/calibre-web-automated:latest
@@ -34,10 +33,6 @@ spec:
               containerPort: 8083
               protocol: TCP
           env:
-            - name: PUID
-              value: "1000"
-            - name: PGID
-              value: "1000"
             - name: TZ
               value: "Europe/Stockholm"
             - name: NETWORK_SHARE_MODE
