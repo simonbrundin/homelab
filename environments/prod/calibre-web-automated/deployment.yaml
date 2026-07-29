@@ -88,7 +88,8 @@ spec:
           persistentVolumeClaim:
             claimName: cwa-config
         - name: ingest
-          emptyDir: {}
+          persistentVolumeClaim:
+            claimName: shelfmark-books
         - name: library
           persistentVolumeClaim:
             claimName: cwa-library

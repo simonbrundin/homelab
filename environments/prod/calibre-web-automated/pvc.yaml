@@ -27,3 +27,20 @@ spec:
     requests:
       storage: 10Gi
   storageClassName: longhorn
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: shelfmark-books
+  namespace: calibre-web-automated
+  labels:
+    app.kubernetes.io/name: calibre-web-automated
+    app.kubernetes.io/managed-by: kustomize
+    shared: "true"
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  storageClassName: longhorn

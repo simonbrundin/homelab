@@ -22,8 +22,8 @@ metadata:
     app.kubernetes.io/name: shelfmark
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
-  storageClassName: longhorn-single-replica
+      storage: 5Gi
+  storageClassName: longhorn
