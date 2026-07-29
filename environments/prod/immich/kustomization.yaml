@@ -8,3 +8,4 @@ resources:
   - database-secret.yaml
   - ocirepository.yaml
   - helmrelease.yaml
+  - httproute.yaml
