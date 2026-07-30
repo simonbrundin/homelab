@@ -59,6 +59,13 @@ spec:
           memory: 64Mi
         limits:
           memory: 256Mi
+    mcp:
+      resources:
+        requests:
+          cpu: 50m
+          memory: 64Mi
+        limits:
+          memory: 256Mi
   install:
     createNamespace: true
     timeout: 10m
