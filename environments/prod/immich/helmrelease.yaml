@@ -15,6 +15,26 @@ spec:
     # Server component
     server:
       enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              env:
+                DB_HOSTNAME:
+                  value: immich-db-rw
+                DB_USERNAME:
+                  value: immich
+                DB_PASSWORD:
+                  valueFrom:
+                    secretKeyRef:
+                      name: immich-db-app
+                      key: password
+                DB_DATABASE_NAME:
+                  value: immich
+                REDIS_HOSTNAME:
+                  value: immich-valkey
+                IMMICH_MACHINE_LEARNING_URL:
+                  value: http://immich-machine-learning:3003
     # Machine learning component
     machine-learning:
       enabled: true
