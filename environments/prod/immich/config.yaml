@@ -11,7 +11,6 @@ data:
       host: immich-db-rw
       username: immich
       database: immich
-      password: XZtcNonZAPbGisIuUcz0SucgPFXt5515eC4MgVfwEITrtwQrbvpya9ZlD38nT9fb
     redis:
       hostname: immich-valkey
     machine_learning:
