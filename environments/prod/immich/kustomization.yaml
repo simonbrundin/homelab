@@ -7,5 +7,6 @@ resources:
   - database.yaml
   - database-secret.yaml
   - ocirepository.yaml
+  - config.yaml
   - helmrelease.yaml
   - httproute.yaml

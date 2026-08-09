@@ -10,42 +10,14 @@ spec:
     name: immich
     namespace: flux-system
   values:
-    # Server component (formerly controllers.main)
+    # Use configuration file instead of env vars (v3.0.0 requirement)
+    existingConfiguration: immich-config
+    # Server component
     server:
       enabled: true
-      controllers:
-        main:
-          containers:
-            main:
-              image:
-                tag: v3.0.0
-              env:
-                DB_HOSTNAME:
-                  value: immich-db-rw
-                DB_USERNAME:
-                  value: immich
-                DB_PASSWORD:
-                  valueFrom:
-                    secretKeyRef:
-                      name: immich-db-app
-                      key: password
-                DB_DATABASE_NAME:
-                  value: immich
-                DB_VECTOR_EXTENSION:
-                  value: pgvector
-                REDIS_HOSTNAME:
-                  value: immich-valkey
-                IMMICH_MACHINE_LEARNING_URL:
-                  value: http://immich-machine-learning:3003
     # Machine learning component
     machine-learning:
       enabled: true
-      controllers:
-        main:
-          containers:
-            main:
-              image:
-                tag: v3.0.0
     # Data persistence (library photos)
     immich:
       persistence:
