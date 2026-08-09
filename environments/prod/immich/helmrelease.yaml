@@ -10,28 +10,28 @@ spec:
     name: immich
     namespace: flux-system
   values:
-    # Use configuration file instead of env vars (v3.0.0 requirement)
+    # Use configuration file for main settings
     existingConfiguration: immich-config
+    # Shared controller settings with DB env vars from secret
+    controllers:
+      main:
+        containers:
+          main:
+            env:
+              DB_HOSTNAME:
+                value: immich-db-rw
+              DB_USERNAME:
+                value: immich
+              DB_DATABASE_NAME:
+                value: immich
+              DB_PASSWORD:
+                valueFrom:
+                  secretKeyRef:
+                    name: immich-db-app
+                    key: password
     # Server component
     server:
       enabled: true
-      controllers:
-        main:
-          containers:
-            main:
-              # Add extra env vars using extraEnv
-              extraEnv:
-                - name: DB_HOSTNAME
-                  value: immich-db-rw
-                - name: DB_USERNAME
-                  value: immich
-                - name: DB_DATABASE_NAME
-                  value: immich
-                - name: DB_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: immich-db-app
-                      key: password
     # Machine learning component
     machine-learning:
       enabled: true
