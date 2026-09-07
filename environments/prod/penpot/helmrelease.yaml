@@ -41,8 +41,10 @@ spec:
       valkeyEnabled: false
     backend:
       updateStrategy:
-        type: Recreate
-        rollingUpdate: null
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
       resources:
         requests:
           cpu: 100m
@@ -51,8 +53,10 @@ spec:
           memory: 1Gi
     frontend:
       updateStrategy:
-        type: Recreate
-        rollingUpdate: null
+        type: RollingUpdate
+        rollingUpdate:
+          maxSurge: 0
+          maxUnavailable: 1
       resources:
         requests:
           cpu: 100m
