@@ -42,6 +42,7 @@ spec:
     backend:
       updateStrategy:
         type: Recreate
+        rollingUpdate: null
       resources:
         requests:
           cpu: 100m
@@ -51,6 +52,7 @@ spec:
     frontend:
       updateStrategy:
         type: Recreate
+        rollingUpdate: null
       resources:
         requests:
           cpu: 100m
