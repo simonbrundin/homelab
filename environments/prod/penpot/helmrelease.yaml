@@ -8,6 +8,7 @@ spec:
   chart:
     spec:
       chart: penpot
+      version: "1.9.0"
       sourceRef:
         kind: HelmRepository
         name: penpot
@@ -39,6 +40,8 @@ spec:
       postgresqlEnabled: false
       valkeyEnabled: false
     backend:
+      updateStrategy:
+        type: Recreate
       resources:
         requests:
           cpu: 100m
@@ -46,6 +49,8 @@ spec:
         limits:
           memory: 1Gi
     frontend:
+      updateStrategy:
+        type: Recreate
       resources:
         requests:
           cpu: 100m
