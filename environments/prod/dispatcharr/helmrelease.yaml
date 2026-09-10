@@ -26,6 +26,7 @@ spec:
 
     service:
       main:
+        type: ClusterIP
         ports:
           main:
             port: 9191
