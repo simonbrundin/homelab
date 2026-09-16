@@ -34,7 +34,7 @@ spec:
               protocol: TCP
           env:
             - name: JELLYFIN_PublishedServerUrl
-              value: "tv.simonbrundin.com"
+              value: "https://tv.simonbrundin.com"
           resources:
             requests:
               cpu: 100m
