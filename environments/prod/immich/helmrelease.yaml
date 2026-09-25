@@ -10,9 +10,6 @@ spec:
     name: immich
     namespace: flux-system
   values:
-    # Image tag for Immich app version
-    image:
-      tag: v3.2.2
     # Use configuration file for main settings
     existingConfiguration: immich-config
     # Shared controller settings with DB env vars from secret
@@ -20,6 +17,8 @@ spec:
       main:
         containers:
           main:
+            image:
+              tag: v3.2.2
             env:
               DB_HOSTNAME:
                 value: immich-db-rw
