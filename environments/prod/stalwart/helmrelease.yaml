@@ -27,11 +27,11 @@ spec:
 
     replicaCount: 1
 
-    # Recovery admin for initial setup - change password after first login!
+    # Recovery admin - password stored in SOPS (see admin-secret.yaml)
     recoveryAdmin:
       enabled: true
       username: admin
-      password: "CHANGE_ME_AFTER_SETUP"
+      existingSecret: "stalwart-admin-secret"
 
     # RocksDB for local storage (simple and efficient for homelab)
     # PostgreSQL can be configured later for multi-node setups
