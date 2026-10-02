@@ -12,7 +12,7 @@ spec:
   rules:
     - backendRefs:
         - kind: Service
-          name: stalwart
+          name: stalwart-stalwart
           port: 8080
           weight: 1
       matches:
