@@ -50,6 +50,7 @@ spec:
           cpu: 100m
           memory: 256Mi
         limits:
+          cpu: 500m
           memory: 1Gi
     frontend:
       updateStrategy:
@@ -62,6 +63,7 @@ spec:
           cpu: 100m
           memory: 128Mi
         limits:
+          cpu: 200m
           memory: 512Mi
     exporter:
       resources:
@@ -69,6 +71,7 @@ spec:
           cpu: 50m
           memory: 64Mi
         limits:
+          cpu: 100m
           memory: 256Mi
     mcp:
       resources:
@@ -76,6 +79,7 @@ spec:
           cpu: 50m
           memory: 64Mi
         limits:
+          cpu: 100m
           memory: 256Mi
   install:
     createNamespace: true

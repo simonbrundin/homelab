@@ -31,12 +31,41 @@ spec:
                   secretKeyRef:
                     name: immich-db-app
                     key: password
+            resources:
+              requests:
+                cpu: 1m
+                memory: 64Mi
+              limits:
+                cpu: 100m
+                memory: 128Mi
     # Server component
     server:
       enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              resources:
+                requests:
+                  cpu: 1m
+                  memory: 64Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
     # Machine learning component
     machine-learning:
       enabled: true
+      controllers:
+        main:
+          containers:
+            main:
+              resources:
+                requests:
+                  cpu: 1m
+                  memory: 64Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
     # Data persistence (library photos)
     immich:
       persistence:
@@ -51,6 +80,17 @@ spec:
           size: 1Gi
           accessMode: ReadWriteOnce
           type: persistentVolumeClaim
+      controllers:
+        main:
+          containers:
+            main:
+              resources:
+                requests:
+                  cpu: 1m
+                  memory: 32Mi
+                limits:
+                  cpu: 50m
+                  memory: 64Mi
   install:
     createNamespace: true
     timeout: 10m
