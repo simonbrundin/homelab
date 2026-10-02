@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: bulwark
+  namespace: bulwark
+spec:
+  interval: 24h
+  url: https://l4gdev.github.io/helm-charts

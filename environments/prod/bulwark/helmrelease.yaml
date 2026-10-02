@@ -1,0 +1,69 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: bulwark
+  namespace: bulwark
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: bulwark-mail
+      version: "0.2.2"
+      sourceRef:
+        kind: HelmRepository
+        name: bulwark
+        namespace: bulwark
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    remediation:
+      retries: 3
+  values:
+    replicaCount: 1
+
+    config:
+      # IMPORTANT: Must be publicly resolvable URL
+      jmapServerUrl: "https://mail.simonbrundin.com"
+      hostname: "0.0.0.0"
+      port: 3000
+      # Enable Stalwart-specific features
+      stalwartFeatures: true
+      logLevel: "info"
+
+    image:
+      repository: ghcr.io/bulwarkmail/webmail
+      tag: "latest"
+
+    service:
+      type: ClusterIP
+      port: 3000
+
+    ingress:
+      enabled: false  # We use HTTPRoute instead
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 500m
+        memory: 512Mi
+
+    podSecurityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+
+    securityContext:
+      allowPrivilegeEscalation: false
+      readOnlyRootFilesystem: true
+      runAsNonRoot: true
+      runAsUser: 1000
+      capabilities:
+        drop:
+          - ALL
