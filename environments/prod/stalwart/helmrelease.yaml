@@ -38,12 +38,10 @@ spec:
     config:
       "@type": RocksDb
       path: /var/lib/stalwart
-      http:
-        "@enabled": true
-        "jmap":
-          url: ".well-known/jmap"
-        "mandatory-account": true
-        "use-permissive-cors": true
+
+    # Extra env vars for CORS
+    extraEnv:
+      STALWART_HTTP_USE_PERMISSIVE_CORS: "true"
 
     # Persistent storage on Longhorn
     persistence:
