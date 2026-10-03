@@ -41,6 +41,12 @@ spec:
 
 
 
+    # Recovery mode for debugging
+    recoveryMode:
+      enabled: true
+      port: 8080
+      logLevel: debug
+
     # Persistent storage on Longhorn
     persistence:
       enabled: true
