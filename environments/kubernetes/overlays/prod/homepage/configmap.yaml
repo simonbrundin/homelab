@@ -45,6 +45,22 @@ data:
             href: https://uptime.simonbrundin.com
             siteMonitor: https://uptime.simonbrundin.com
             description: Monitor homelab service uptime
+    - Media:
+        - Jellyfin:
+            icon: jellyfin.png
+            href: https://tv.simonbrundin.com
+            siteMonitor: https://tv.simonbrundin.com
+            description: Film och serier
+        - SuggestArr:
+            icon: suggestion.png
+            href: https://suggest.simonbrundin.com
+            siteMonitor: https://suggest.simonbrundin.com
+            description: Automatiska mediarekommendationer
+        - Jellyseerr:
+            icon: request.png
+            href: https://seerr.simonbrundin.com
+            siteMonitor: https://seerr.simonbrundin.com
+            description: Begär media
   widgets.yaml: |
     - search:
         provider: duckduckgo

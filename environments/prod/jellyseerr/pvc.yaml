@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyseerr-config
+  namespace: jellyseerr
+  labels:
+    app.kubernetes.io/name: jellyseerr
+    app.kubernetes.io/instance: jellyseerr
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-single-replica
+  # SQLite database + config files only (no media files)
+  resources:
+    requests:
+      storage: 500Mi
