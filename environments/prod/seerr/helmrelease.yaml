@@ -1,0 +1,84 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: seerr
+  namespace: seerr
+spec:
+  interval: 10m
+  chartRef:
+    kind: OCIRepository
+    name: seerr
+    namespace: flux-system
+  install:
+    createNamespace: true
+    timeout: 5m
+  upgrade:
+    timeout: 5m
+  values:
+    image:
+      repository: seerr-team/seerr
+      tag: latest
+
+    service:
+      type: ClusterIP
+      port: 80
+
+    config:
+      persistence:
+        enabled: true
+        size: 500Mi
+        storageClass: longhorn-single-replica
+        accessModes:
+          - ReadWriteOnce
+
+    route:
+      main:
+        enabled: true
+        apiVersion: gateway.networking.k8s.io/v1
+        kind: HTTPRoute
+        parentRefs:
+          - name: simons-gateway
+            namespace: envoy
+        hostnames:
+          - "seerr.simonbrundin.com"
+        matches:
+          - path:
+              type: PathPrefix
+              value: /
+
+    podSecurityContext:
+      fsGroup: 1000
+      fsGroupChangePolicy: OnRootMismatch
+      runAsNonRoot: true
+
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        drop: [ALL]
+      readOnlyRootFilesystem: false
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      seccompProfile:
+        type: RuntimeDefault
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
+
+    probes:
+      livenessProbe:
+        initialDelaySeconds: 30
+        periodSeconds: 15
+        timeoutSeconds: 3
+      readinessProbe:
+        initialDelaySeconds: 10
+        periodSeconds: 5
+        timeoutSeconds: 3
+
+    extraEnv:
+      - name: LOG_LEVEL
+        value: info

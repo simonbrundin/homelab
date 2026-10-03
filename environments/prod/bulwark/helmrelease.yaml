@@ -32,6 +32,15 @@ spec:
       stalwartFeatures: true
       logLevel: "info"
 
+    # Extra environment variables for Bulwark
+    extraEnv:
+      - name: ADMIN_PASSWORD
+        value: "bulwark-admin-password-2024"
+      - name: SESSION_SECRET
+        value: "bulwark-session-secret-for-multiaccount-2024"
+      - name: OAUTH_ENABLED
+        value: "false"
+
     image:
       repository: ghcr.io/bulwarkmail/webmail
       tag: "latest"
