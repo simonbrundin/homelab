@@ -38,6 +38,12 @@ spec:
     config:
       "@type": RocksDb
       path: /var/lib/stalwart
+      http:
+        "0.0.0.0:80"
+      management:
+        "0.0.0.0:8080"
+      jmap:
+        "0.0.0.0:8080"
 
 
 
