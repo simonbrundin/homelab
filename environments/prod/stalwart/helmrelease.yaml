@@ -39,9 +39,21 @@ spec:
       "@type": RocksDb
       path: /var/lib/stalwart
 
-    # Extra env vars for CORS
+    # TLS certificate from cert-manager
     extraEnv:
-      STALWART_HTTP_USE_PERMISSIVE_CORS: "true"
+      STALWART_TLS_CERT: /etc/tls/tls.crt
+      STALWART_TLS_KEY: /etc/tls/tls.key
+
+    # Mount TLS certificate
+    extraVolumeMounts:
+      - name: tls-cert
+        mountPath: /etc/tls
+        readOnly: true
+
+    extraVolumes:
+      - name: tls-cert
+        secret:
+          secretName: simonbrundin
 
     # Persistent storage on Longhorn
     persistence:
