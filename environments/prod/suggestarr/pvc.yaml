@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: suggestarr-config
+  namespace: suggestarr
+  labels:
+    app.kubernetes.io/name: suggestarr
+    app.kubernetes.io/instance: suggestarr
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn-single-replica
+  # SQLite database + config files only (no media files)
+  resources:
+    requests:
+      storage: 500Mi
